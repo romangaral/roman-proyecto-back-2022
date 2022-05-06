@@ -12,6 +12,8 @@ INSERT INTO usuarios_roles(rol_id, usuario_id) VALUES (2, 2);
 
 -----------------------------------------ENTRADAS-------------------------------------
 INSERT INTO entradas(titulo, texto) VALUES ("Entrada Uno", "Texto de entrada para el texto uno");
+INSERT INTO entradas(titulo, texto) VALUES ("Entrada Dos", "Texto de entrada para el texto dos");
+
 
 -----------------------------------------COMENTARIOS-------------------------------------
 INSERT INTO comentarios(texto) VALUES ("comentario Uno");
