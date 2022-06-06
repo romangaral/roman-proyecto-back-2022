@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "usuarios_roles", uniqueConstraints = {@UniqueConstraint(name= "USUARIO_ROL_UK", columnNames = {"usuario_id", "rol_id"})})
 public class UsuarioRol {

@@ -34,6 +34,7 @@ public interface UsuarioService {
 	void deleteAll();
 	
 	Usuario crearUsuario(CrearUsuarioDto usuarioDto);
+	//Usuario crearUsuario(Usuario nuevoUsuario);
 	
 	Optional<Usuario> findByNombre(String nombre);
 

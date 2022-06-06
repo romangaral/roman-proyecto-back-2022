@@ -51,7 +51,7 @@ public class Usuario implements UserDetails{
 	@OneToMany(mappedBy = "usuario")
 	private List<Entrada> entradas;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL}, orphanRemoval = true)
 	private List<Comentario> comentarios;
 
 	public Usuario() {
@@ -148,6 +148,10 @@ public class Usuario implements UserDetails{
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+	
+	public Rol getRol() {
+		 return roles.get(0).getRol();
 	}
 
 	@Override

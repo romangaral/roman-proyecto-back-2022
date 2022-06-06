@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,33 +52,50 @@ public class UsuarioController {
 	}
 
 	@GetMapping(value = "/login", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public UsuarioDto getUsuarioProfile(Principal ppal) { // La Interfaz Principal me permite acceder al usuario logueado
-		String loggedUsuario = ppal.getName();
-		Usuario usuario = usuarioService.findByNombre(loggedUsuario)
+	public UsuarioDto getUsuarioProfile(Principal p) { 
+		String logUsuario = p.getName();
+		Usuario usuario = usuarioService.findByNombre(logUsuario)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		if (usuario.getNombre().equals(loggedUsuario)) {
+		if (usuario.getUsername().equals(logUsuario)) {
 			return ConverterDto.getToDtoInstance().map(usuario, UsuarioDto.class);
 		} else {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 		}
 	}
-//----------------------------------------------------POSTMAPPING-----------------------------------------------
 	
-//	@PostMapping (produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
-//	public ResponseEntity<?> crearNuevoUsuario(@RequestBody CrearUsuarioDto nuevoUsuario){
-//		Usuario usuario = usuarioService.crearUsuario(nuevoUsuario);
-//		return ResponseEntity.status(HttpStatus.CREATED).body(ConverterDto.getToDtoInstance().map(usuario, UsuarioDto.class));
-//	}
+//----------------------------------------------------POSTMAPPING-----------------------------------------------
 	
 	@PostMapping (produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<?> crearNuevoUsuario(@RequestBody CrearUsuarioDto nuevoUsuario){
 		Usuario usuario = usuarioService.crearUsuario(nuevoUsuario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ConverterDto.getToDtoInstance().map(usuario, UsuarioDto.class));
 	}
+	
+//	@PostMapping (produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
+//	public Usuario crearNuevoUsuario(@RequestBody Usuario nuevoUsuario){
+//		Usuario usuario = usuarioService.creaUsuario(nuevoUsuario);
+//		return usuario;
+//	}
 
 
 //-----------------------------------------------------PUTMAPPING-------------------------------------------------
 
+	@PutMapping(value = "{id}", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<?> actualizarUsuario(@PathVariable("id") Long id, @RequestBody UsuarioDto actualizarUsuario, BindingResult br){
+		if (!br.hasErrors()) {
+			return usuarioService.findById(id).map(usuario -> {
+				usuario.setNombre(actualizarUsuario.getNombre());
+				usuarioService.save(usuario);
+				return ResponseEntity.status(HttpStatus.CREATED)
+						.body(ConverterDto.getToDtoInstance().map(usuario, UsuarioDto.class));
+			}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getAllErrors());
+		}
+	}
+	
 //----------------------------------------------------DELETEMAPPING-----------------------------------------------
 	
 	@DeleteMapping(value = "{id}")

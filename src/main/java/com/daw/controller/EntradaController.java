@@ -47,10 +47,6 @@ public class EntradaController {
 			return ResponseEntity.ok(result);
 	}
 	
-//	@GetMapping
-//	public List<Entrada> obtenerEntradas(){
-//		return (List<Entrada>) entradaService.findAll();
-//	}
 //----------------------------------------------------POSTMAPPING-----------------------------------------------
 	
 	@PostMapping (produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })

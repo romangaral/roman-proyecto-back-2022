@@ -80,7 +80,7 @@ public class ComentarioServiceImpl implements ComentarioService {
 		comentarioRepository.deleteAll();
 	}
 	
-//	public Comentario crearComentario(Comentario nuevoComentario, Long entradaId, String nombre) {
+//	public Comentario crearComentarioEntrada(Comentario nuevoComentario, Long entradaId, String nombre) {
 //		Entrada entrada = entradaRepository.findById(entradaId).orElse(null);		
 //		Usuario usuario = usuarioRepository.findByNombre(nombre).orElse(null);
 //		Comentario comentario = new Comentario();

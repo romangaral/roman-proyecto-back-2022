@@ -32,6 +32,6 @@ public interface ComentarioService {
 
 	public void deleteAll();
 	
-	//public Comentario crearComentario(Comentario nuevoComentario, Long entradaId, String nombre);
+	//public Comentario crearComentarioEntrada(Comentario nuevoComentario, Long entradaId, String nombre);
 	public Comentario crearComentario(Comentario nuevoComentario);
 }

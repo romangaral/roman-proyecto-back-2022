@@ -119,7 +119,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 		//usuario.setNombre(usuarioDto.getNombre());
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		
-		Rol rol = rolRepository.findByTipo("user").get(0);
+		Rol rol = rolRepository.findByTipo("USER").get(0);
 		usuario.getRoles().add(new UsuarioRol(usuario, rol));
 		return usuarioRepository.save(usuario);
 	}
@@ -135,6 +135,21 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return usuario;
 	}
+
+//	@Override
+//	public Usuario creaUsuario(Usuario nuevoUsuario) {
+//		Usuario usuario = new Usuario();
+//		usuario.setNombre(nuevoUsuario.getNombre());
+//		usuario.setApellidos(nuevoUsuario.getApellidos());
+//		usuario.setEmail(nuevoUsuario.getEmail());
+//		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+//		
+//		Rol rol = rolRepository.findByTipo("user").get(0);
+//		usuario.getRoles().add(new UsuarioRol(usuario, rol));
+//		return usuarioRepository.save(usuario);
+//	}
+
+	
 
 	
 
