@@ -29,38 +29,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.cors()
-			.and()
-			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
-			.and()
-			.httpBasic()
-			.and()
-			.authorizeRequests()
-				.antMatchers(HttpMethod.OPTIONS, "/usuarios/**", "/roles/**", "/entradas/**", "/comentarios" ).permitAll()								
-				.antMatchers(HttpMethod.GET, "/entradas/**", "/comentarios" ).permitAll()
-				.antMatchers(HttpMethod.POST, "/usuarios/**").permitAll()
-				.antMatchers("/administrador/**").permitAll()
-				//.antMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
-				.antMatchers(HttpMethod.GET, "/usuarios").permitAll()
-				.antMatchers(HttpMethod.GET, "/usuarios/**").permitAll() 
-				.antMatchers(HttpMethod.POST, "/entradas/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/comentarios").permitAll()
-				.antMatchers(HttpMethod.POST, "/comentarios/**").permitAll()
-				.antMatchers(HttpMethod.PUT, "/entradas/**").permitAll()
-				.antMatchers(HttpMethod.PUT, "/comentarios/**", "/usuarios/**").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/entradas/**").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/comentarios/**", "/usuarios/**").permitAll()
-				.anyRequest().authenticated()
-			.and()
-			.csrf().disable();
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.cors()
+//			.and()
+//			.sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) 
+//			.and()
+//			.httpBasic()
+//			.and()
+//			.authorizeRequests()
+//				.antMatchers(HttpMethod.OPTIONS, "/usuarios/**", "/roles/**", "/entradas/**", "/comentarios" ).permitAll()								
+//				.antMatchers(HttpMethod.GET, "/entradas/**", "/comentarios" ).permitAll()
+//				.antMatchers(HttpMethod.POST, "/usuarios/**").permitAll()
+//				.antMatchers("/administrador/**").permitAll()
+//				//.antMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
+//				.antMatchers(HttpMethod.GET, "/usuarios").permitAll()
+//				.antMatchers(HttpMethod.GET, "/usuarios/**").permitAll() 
+//				.antMatchers(HttpMethod.POST, "/entradas/**").permitAll()
+//				.antMatchers(HttpMethod.POST, "/comentarios").permitAll()
+//				.antMatchers(HttpMethod.POST, "/comentarios/**").permitAll()
+//				.antMatchers(HttpMethod.PUT, "/entradas/**").permitAll()
+//				.antMatchers(HttpMethod.PUT, "/comentarios/**", "/usuarios/**").permitAll()
+//				.antMatchers(HttpMethod.DELETE, "/entradas/**").permitAll()
+//				.antMatchers(HttpMethod.DELETE, "/comentarios/**", "/usuarios/**").permitAll()
+//				.anyRequest().authenticated()
+//			.and()
+//			.csrf().disable();
+//	}
 
-//	 public void configure(WebSecurity web) {
-//		 web.ignoring().anyRequest();
-//	 }
+	 public void configure(WebSecurity web) {
+		 web.ignoring().anyRequest();
+	 }
 	 
 }
